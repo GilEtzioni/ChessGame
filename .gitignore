@@ -1,0 +1,27 @@
+# === Build Folders ===
+bin/
+obj/
+
+# === Rider Settings ===
+.idea/
+*.DotSettings
+*.DotSettings.user
+
+# === Visual Studio Settings ===
+*.user
+*.suo
+.vs/
+
+# === Logs ===
+*.log
+
+# === OS Files ===
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === NuGet ===
+*.nupkg
+packages/
+project.lock.json
+project.assets.json
