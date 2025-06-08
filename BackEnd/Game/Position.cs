@@ -17,5 +17,15 @@ public class Position
     {
         return (row + col) % 2 == 0 ? Enums.PlayerColor.Black : Enums.PlayerColor.White;
     }
+    public override bool Equals(object? obj)
+    {
+        return obj is Position other &&
+               this.Row == other.Row &&
+               this.Column == other.Column;
+    }
 
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Row, Column);
+    }
 }

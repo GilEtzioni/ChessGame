@@ -34,7 +34,7 @@ public class Pawn : ChessMan
     {
         var moves = new List<Move>();
 
-        if (color == Enums.PlayerColor.White &&
+        if (color == Enums.PlayerColor.Black &&
             fromPosition.Row == 1 &&
             board.GetAt(fromPosition.Row + 1, fromPosition.Column) == null &&
             board.GetAt(fromPosition.Row + 2, fromPosition.Column) == null)
@@ -42,7 +42,7 @@ public class Pawn : ChessMan
             var toPosition = new Position(fromPosition.Row + 2, fromPosition.Column);
             moves.Add(new Move(fromPosition, toPosition));
         }
-        else if (color == Enums.PlayerColor.Black &&
+        else if (color == Enums.PlayerColor.White &&
                  fromPosition.Row == 6 &&
                  board.GetAt(fromPosition.Row - 1, fromPosition.Column) == null &&
                  board.GetAt(fromPosition.Row - 2, fromPosition.Column) == null)
@@ -58,7 +58,7 @@ public class Pawn : ChessMan
     {
         var moves = new List<Move>();
 
-        if (color == Enums.PlayerColor.White)
+        if (color == Enums.PlayerColor.Black)
         {
             int newRow = fromPosition.Row + 1;
             if (newRow < 8 && board.GetAt(newRow, fromPosition.Column) == null)
@@ -67,7 +67,7 @@ public class Pawn : ChessMan
                 moves.Add(new Move(fromPosition, toPosition));
             }
         }
-        else if (color == Enums.PlayerColor.Black)
+        else if (color == Enums.PlayerColor.White)
         {
             int newRow = fromPosition.Row - 1;
             if (newRow >= 0 && board.GetAt(newRow, fromPosition.Column) == null)
@@ -86,7 +86,7 @@ private IEnumerable<Move> MoveOneStepsDiagnol(Position fromPosition, Board board
 {
     var moves = new List<Move>();
 
-    if (color == Enums.PlayerColor.White)
+    if (color == Enums.PlayerColor.Black)
     {
         int newRow = fromPosition.Row + 1;
         
@@ -114,7 +114,7 @@ private IEnumerable<Move> MoveOneStepsDiagnol(Position fromPosition, Board board
             }
         }
     }
-    else if (color == Enums.PlayerColor.Black)
+    else if (color == Enums.PlayerColor.White)
     {
         int newRow = fromPosition.Row - 1;
         

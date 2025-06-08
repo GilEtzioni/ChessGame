@@ -8,11 +8,12 @@
         Title="MainWindowChessGame" SizeToContent="Height" Width="600">
     
     <Viewbox>
-        <Grid x:Name="BoardGrid" Height="600" Width="600">
+        <Grid x:Name="BoardGrid" Height="600" Width="600" MouseDown="BoardGrid_OnMouseDown">
             <Grid.Background>
                 <ImageBrush ImageSource="C:\Users\ניב\RiderProjects\ChessGame\FrontEnd/Assets/ChessBoard.png"/>
             </Grid.Background>
-            <UniformGrid x:Name="ChessManGrid" Rows="8" Columns="8"/>
+            <UniformGrid x:Name="MarkersGrid" Rows="8" Columns="8" />
+            <UniformGrid x:Name="ChessManGrid" Rows="8" Columns="8" />
         </Grid>
     </Viewbox>
 </Window>
