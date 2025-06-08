@@ -28,7 +28,7 @@ public class Board
         chessMans[position.Row, position.Column] = value;
     }
 
-    public Board Initial()
+    public static Board Initial()
     {
         Board board = new Board();
         board.AddStarterChessManToBoard();

@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChessGame"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="MainWindowChessGame" SizeToContent="Height" Width="600">
+    
+    <Viewbox>
+        <Grid x:Name="BoardGrid" Height="600" Width="600">
+            <Grid.Background>
+                <ImageBrush ImageSource="C:\Users\ניב\RiderProjects\ChessGame\FrontEnd/Assets/ChessBoard.png"/>
+            </Grid.Background>
+            <UniformGrid x:Name="ChessManGrid" Rows="8" Columns="8"/>
+        </Grid>
+    </Viewbox>
 </Window>

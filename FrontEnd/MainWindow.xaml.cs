@@ -1,23 +1,22 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using BackEnd.Game;
+using BackEnd.Utils;
 
-namespace ChessGame;
-
-/// <summary>
-/// Interaction logic for MainWindow.xaml
-/// </summary>
-public partial class MainWindow : Window
+namespace ChessGame
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
+        private GameHandle gameHandle;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            var board = Board.Initial();
+            gameHandle = new GameHandle(Enums.PlayerColor.White, board);
+
+            BoardUIHelper.InitializeBoard(ChessManGrid);
+            BoardUIHelper.DrawBoard(ChessManGrid, gameHandle.Board);
+        }
     }
 }
