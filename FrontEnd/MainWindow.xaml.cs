@@ -16,8 +16,8 @@ namespace ChessGame
 
             var board = Board.Initial();
             gameHandle = new GameHandle(Enums.PlayerColor.White, board);
-
-            boardUIHelper = new BoardUIHelper(gameHandle, ChessManGrid, MarkersGrid, BoardGrid);
+            
+            boardUIHelper = new BoardUIHelper(gameHandle, ChessManGrid, MarkersGrid, BoardGrid, MenuContainer);
             boardUIHelper.DrawBoard(gameHandle.Board);
         }
 

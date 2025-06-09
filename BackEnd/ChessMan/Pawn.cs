@@ -13,6 +13,19 @@ public class Pawn : ChessMan
     {
         Color = color;
     }
+
+    private IEnumerable<Move> PromotionMoves(Position fromPosition, Position toPosition)
+    {
+        var moves = new List<Move>
+        {
+            new PawnPromotion(fromPosition, toPosition, Enums.ChessManType.Bishop),
+            new PawnPromotion(fromPosition, toPosition, Enums.ChessManType.Rook),
+            new PawnPromotion(fromPosition, toPosition, Enums.ChessManType.Queen),
+            new PawnPromotion(fromPosition, toPosition, Enums.ChessManType.Knight)
+        };
+
+        return moves;
+    }
     
     public override IEnumerable<Move> GetAllValidMoves(Position fromPosition, Board board)
     {
@@ -64,7 +77,18 @@ public class Pawn : ChessMan
             if (newRow < 8 && board.GetAt(newRow, fromPosition.Column) == null)
             {
                 Position toPosition = new Position(newRow, fromPosition.Column);
-                moves.Add(new Move(fromPosition, toPosition));
+
+                if (newRow == 7)
+                {
+                    foreach (Move nextMove in PromotionMoves(fromPosition, toPosition))
+                    {
+                        moves.Add(nextMove);
+                    }
+                }
+                else
+                {
+                    moves.Add(new Move(fromPosition, toPosition));
+                }
             }
         }
         else if (color == Enums.PlayerColor.White)
@@ -73,77 +97,113 @@ public class Pawn : ChessMan
             if (newRow >= 0 && board.GetAt(newRow, fromPosition.Column) == null)
             {
                 Position toPosition = new Position(newRow, fromPosition.Column);
-                moves.Add(new Move(fromPosition, toPosition));
+
+                if (newRow == 0)
+                {
+                    foreach (Move nextMove in PromotionMoves(fromPosition, toPosition))
+                    {
+                        moves.Add(nextMove);
+                    }
+                }
+                else
+                {
+                    moves.Add(new Move(fromPosition, toPosition));
+                }
             }
         }
 
         return moves;
     }
 
-
-
-private IEnumerable<Move> MoveOneStepsDiagnol(Position fromPosition, Board board, Enums.PlayerColor color)
-{
-    var moves = new List<Move>();
-
-    if (color == Enums.PlayerColor.Black)
+    private IEnumerable<Move> MoveOneStepsDiagnol(Position fromPosition, Board board, Enums.PlayerColor color)
     {
-        int newRow = fromPosition.Row + 1;
-        
-        // diagonal left (col - 1)
-        int leftCol = fromPosition.Column - 1;
-        if (newRow < 8 && leftCol >= 0)
+        var moves = new List<Move>();
+
+        if (color == Enums.PlayerColor.Black)
         {
-            var target = board.GetAt(newRow, leftCol);
-            if (target != null && target.Color != color)
+            int newRow = fromPosition.Row + 1;
+
+            // diagonal left
+            int leftCol = fromPosition.Column - 1;
+            if (newRow < 8 && leftCol >= 0)
             {
-                Position toPosition = new Position(newRow, leftCol);
-                moves.Add(new Move(fromPosition, toPosition));
+                var target = board.GetAt(newRow, leftCol);
+                if (target != null && target.Color != color)
+                {
+                    Position toPosition = new Position(newRow, leftCol);
+                    if (newRow == 7)
+                    {
+                        moves.AddRange(PromotionMoves(fromPosition, toPosition));
+                    }
+                    else
+                    {
+                        moves.Add(new Move(fromPosition, toPosition));
+                    }
+                }
+            }
+
+            // diagonal right
+            int rightCol = fromPosition.Column + 1;
+            if (newRow < 8 && rightCol < 8)
+            {
+                var target = board.GetAt(newRow, rightCol);
+                if (target != null && target.Color != color)
+                {
+                    Position toPosition = new Position(newRow, rightCol);
+                    if (newRow == 7)
+                    {
+                        moves.AddRange(PromotionMoves(fromPosition, toPosition));
+                    }
+                    else
+                    {
+                        moves.Add(new Move(fromPosition, toPosition));
+                    }
+                }
+            }
+        }
+        else if (color == Enums.PlayerColor.White)
+        {
+            int newRow = fromPosition.Row - 1;
+
+            // diagonal left
+            int leftCol = fromPosition.Column - 1;
+            if (newRow >= 0 && leftCol >= 0)
+            {
+                var target = board.GetAt(newRow, leftCol);
+                if (target != null && target.Color != color)
+                {
+                    Position toPosition = new Position(newRow, leftCol);
+                    if (newRow == 0)
+                    {
+                        moves.AddRange(PromotionMoves(fromPosition, toPosition));
+                    }
+                    else
+                    {
+                        moves.Add(new Move(fromPosition, toPosition));
+                    }
+                }
+            }
+
+            // diagonal right
+            int rightCol = fromPosition.Column + 1;
+            if (newRow >= 0 && rightCol < 8)
+            {
+                var target = board.GetAt(newRow, rightCol);
+                if (target != null && target.Color != color)
+                {
+                    Position toPosition = new Position(newRow, rightCol);
+                    if (newRow == 0)
+                    {
+                        moves.AddRange(PromotionMoves(fromPosition, toPosition));
+                    }
+                    else
+                    {
+                        moves.Add(new Move(fromPosition, toPosition));
+                    }
+                }
             }
         }
 
-        // diagonal right (col + 1)
-        int rightCol = fromPosition.Column + 1;
-        if (newRow < 8 && rightCol < 8)
-        {
-            var target = board.GetAt(newRow, rightCol);
-            if (target != null && target.Color != color)
-            {
-                Position toPosition = new Position(newRow, rightCol);
-                moves.Add(new Move(fromPosition, toPosition));
-            }
-        }
+        return moves;
     }
-    else if (color == Enums.PlayerColor.White)
-    {
-        int newRow = fromPosition.Row - 1;
-        
-        // diagonal left (col - 1)
-        int leftCol = fromPosition.Column - 1;
-        if (newRow >= 0 && leftCol >= 0)
-        {
-            var target = board.GetAt(newRow, leftCol);
-            if (target != null && target.Color != color)
-            {
-                Position toPosition = new Position(newRow, leftCol);
-                moves.Add(new Move(fromPosition, toPosition));
-            }
-        }
-
-        // diagonal right (col + 1)
-        int rightCol = fromPosition.Column + 1;
-        if (newRow >= 0 && rightCol < 8)
-        {
-            var target = board.GetAt(newRow, rightCol);
-            if (target != null && target.Color != color)
-            {
-                Position toPosition = new Position(newRow, rightCol);
-                moves.Add(new Move(fromPosition, toPosition));
-            }
-        }
-    }
-
-    return moves;
-}
-
 }

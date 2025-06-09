@@ -27,12 +27,20 @@ namespace ChessGame
         private readonly UniformGrid _markersGrid;
         private readonly Grid _boardGrid;
 
-        public BoardUIHelper(GameHandle gameHandle, UniformGrid chessManGrid, UniformGrid markersGrid, Grid boardGrid)
+        private readonly ContentControl _menuContainer;
+
+        public BoardUIHelper(
+            GameHandle gameHandle,
+            UniformGrid chessManGrid,
+            UniformGrid markersGrid,
+            Grid boardGrid,
+            ContentControl menuContainer)
         {
             _gameHandle = gameHandle;
             _chessManGrid = chessManGrid;
             _markersGrid = markersGrid;
             _boardGrid = boardGrid;
+            _menuContainer = menuContainer;
 
             InitializeBoard();
         }
@@ -68,7 +76,8 @@ namespace ChessGame
                 for (int j = 0; j < 8; j++)
                 {
                     ChessMan? chessMan = board.GetAt(i, j);
-                    chessManImages[i, j].Source = _images.GetImage(chessMan);
+                    var image = Images.GetImage(chessMan);
+                    chessManImages[i, j].Source = image;
                 }
             }
         }
@@ -94,16 +103,53 @@ namespace ChessGame
                 ShowMarkers();
             }
         }
-
-
+        
         private void OnToPositionSelected(Position position)
         {
             selectedPosition = null;
             HideMarkers();
+
             if (moveCache.TryGetValue(position, out var move))
             {
+                if (move.MoveType == Enums.MoveType.PawnPromotion)
+                {
+                    HandlePawnPromotion(move.FromPosition, move.ToPosition);
+                    return;
+                }
+
                 HandleMove(move);
             }
+        }
+
+        private void HandlePawnPromotion(Position fromPosition, Position toPosition)
+        {
+            chessManImages[toPosition.Row, toPosition.Column].Source =
+                Images.GetImage(_gameHandle.CurrentPlayerColor, Enums.ChessManType.Pawn);
+            chessManImages[fromPosition.Row, fromPosition.Column].Source = null;
+
+            var cardPawnPromotion = new CardPawnPromotion(_gameHandle.Board.GetAt(fromPosition));
+            _menuContainer.Content = cardPawnPromotion;
+            _menuContainer.Visibility = Visibility.Visible;
+
+            cardPawnPromotion.ChessManSelected += type =>
+            {
+                _menuContainer.Visibility = Visibility.Collapsed;
+                _menuContainer.Content = null;
+
+                var promotedPiece = type switch
+                {
+                    Enums.ChessManType.Queen => (ChessMan)new Queen(_gameHandle.CurrentPlayerColor),
+                    Enums.ChessManType.Rook => (ChessMan)new Rook(_gameHandle.CurrentPlayerColor),
+                    Enums.ChessManType.Bishop => (ChessMan)new Bishop(_gameHandle.CurrentPlayerColor),
+                    Enums.ChessManType.Knight => (ChessMan)new Knight(_gameHandle.CurrentPlayerColor),
+                    _ => throw new Exception("Invalid promotion type")
+                };
+
+                var newMove = new PawnPromotion(fromPosition, toPosition, type);
+                _gameHandle.MakeMove(newMove);
+                _gameHandle.Board.SetAt(toPosition, promotedPiece);
+                DrawBoard(_gameHandle.Board);
+            };
         }
 
         private void HandleMove(Move move)

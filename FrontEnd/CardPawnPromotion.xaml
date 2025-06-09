@@ -1,0 +1,19 @@
+<UserControl x:Class="ChessGame.CardPawnPromotion"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ChessGame"
+             mc:Ignorable="d"
+             d:DesignHeight="100" d:DesignWidth="400">
+    
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Background="#CCFFFFFF">
+            <Image Width="100" Height="100" x:Name="QueenPNG" MouseDown="QueenPNG_MouseDown" Source="Assets/white_queen.png"/>
+            <Image Width="100" Height="100" x:Name="BishopPNG" MouseDown="BishopPNG_MouseDown" Source="Assets/white_bishop.png"/>
+            <Image Width="100" Height="100" x:Name="RookPNG" MouseDown="RookPNG_MouseDown" Source="Assets/white_rook.png"/>
+            <Image Width="100" Height="100" x:Name="KnightPNG" MouseDown="KnightPNG_MouseDown" Source="Assets/white_knight.png"/>
+        </StackPanel>
+    </Grid>
+    
+</UserControl>

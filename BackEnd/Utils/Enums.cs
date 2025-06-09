@@ -17,4 +17,10 @@ public class Enums
         Queen,
         King
     }
+
+    public enum MoveType
+    {
+        None,
+        PawnPromotion
+    }
 }

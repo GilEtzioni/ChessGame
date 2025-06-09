@@ -34,7 +34,7 @@ namespace ChessGame
             return new BitmapImage(new Uri(filePath, UriKind.Absolute));
         }
 
-        public ImageSource? GetImage(Enums.PlayerColor color, Enums.ChessManType type)
+        public static ImageSource? GetImage(Enums.PlayerColor color, Enums.ChessManType type)
         {
             return color switch
             {
@@ -44,7 +44,7 @@ namespace ChessGame
             };
         }
 
-        public ImageSource? GetImage(ChessMan? chessMan)
+        public static ImageSource? GetImage(ChessMan? chessMan)
         {
             return chessMan == null ? null : GetImage(chessMan.Color, chessMan.Type);
         }

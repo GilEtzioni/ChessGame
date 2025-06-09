@@ -33,4 +33,11 @@ public class GameHandle
             ? Enums.PlayerColor.Black
             : Enums.PlayerColor.White;
     }
+    
+    public void SwitchTurn()
+    {
+        CurrentPlayerColor = CurrentPlayerColor == Enums.PlayerColor.White
+            ? Enums.PlayerColor.Black
+            : Enums.PlayerColor.White;
+    }
 }
