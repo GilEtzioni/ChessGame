@@ -6,18 +6,19 @@
         xmlns:local="clr-namespace:ChessGame"
         mc:Ignorable="d"
         Title="MainWindowChessGame" SizeToContent="Height" Width="600">
-    
-        <DockPanel>
-            <ContentControl x:Name="MenuContainer" DockPanel.Dock="Top" Height="100"/>
 
-            <Viewbox DockPanel.Dock="Bottom">
-                <Grid x:Name="BoardGrid" Height="600" Width="600" MouseDown="BoardGrid_OnMouseDown">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="C:\Users\ניב\RiderProjects\ChessGame\FrontEnd/Assets/ChessBoard.png"/>
-                    </Grid.Background>
-                    <UniformGrid x:Name="MarkersGrid" Rows="8" Columns="8" />
-                    <UniformGrid x:Name="ChessManGrid" Rows="8" Columns="8" />
-                </Grid>
-            </Viewbox>
-        </DockPanel>
-    </Window>
+    <DockPanel>
+        <ContentControl x:Name="MenuContainer" DockPanel.Dock="Top" Height="100"/>
+
+        <Viewbox DockPanel.Dock="Bottom">
+            <Grid x:Name="BoardGrid" Height="600" Width="600" MouseDown="BoardGrid_OnMouseDown">
+                <Grid.Background>
+                    <ImageBrush ImageSource="C:\Users\ניב\RiderProjects\ChessGame\FrontEnd/Assets/ChessBoard.png"/>
+                </Grid.Background>
+                <UniformGrid x:Name="MarkersGrid" Rows="8" Columns="8" />
+                <UniformGrid x:Name="ChessManGrid" Rows="8" Columns="8" />
+                <local:GameOverCard x:Name="GameOverCard" Visibility="Collapsed" OptionSelected="GameOverCard_OptionSelected"/>
+            </Grid>
+        </Viewbox>
+    </DockPanel>
+</Window>

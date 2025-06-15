@@ -1,3 +1,4 @@
+using BackEnd.ChessMan;
 using BackEnd.Moves;
 using BackEnd.Utils;
 
@@ -33,11 +34,41 @@ public class GameHandle
             ? Enums.PlayerColor.Black
             : Enums.PlayerColor.White;
     }
-    
     public void SwitchTurn()
     {
         CurrentPlayerColor = CurrentPlayerColor == Enums.PlayerColor.White
             ? Enums.PlayerColor.Black
             : Enums.PlayerColor.White;
     }
+
+    public Enums.PlayerColor GetWinner()
+    {
+        const int rows = 8;
+        const int cols = 8;
+        bool isWhiteKing = false;
+        bool isBlackKing = false;
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                var piece = Board.GetAt(i, j);
+                if (piece is King king)
+                {
+                    if (king.Color == Enums.PlayerColor.Black)
+                        isBlackKing = true;
+                    else if (king.Color == Enums.PlayerColor.White)
+                        isWhiteKing = true;
+                }
+            }
+        }
+
+        if (isWhiteKing && isBlackKing)
+            return Enums.PlayerColor.None;
+        else if (isWhiteKing)
+            return Enums.PlayerColor.White;
+        else
+            return Enums.PlayerColor.Black;
+    }
+
 }

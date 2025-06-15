@@ -5,7 +5,8 @@ public class Enums
     public enum PlayerColor
     {
         Black,
-        White
+        White,
+        None
     }
 
     public enum ChessManType
