@@ -3,8 +3,8 @@
 ## Overview
 This project is a chess game built using C# and WPF.
 
-## Screenshots
-![Chess Game Screenshot](ChessGame/FrontEnd/Docs/ReadmeBoard.png)
+### Board Diagram
+![Board Diagram](ChessGame/FrontEnd/Docs/ReadmeBoard.png)
 
-## Class Diagram
+### Class Diagram
 ![Class Diagram](ChessGame/FrontEnd/Docs/ReadmeClassDiagram.png)
