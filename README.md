@@ -4,7 +4,7 @@
 This project is a chess game built using C# and WPF.
 
 ### Board Diagram
-![Board Diagram](ChessGame/FrontEnd/Docs/ReadmeBoard.png)
+![image alt](https://github.com/GilEtzioni/ChessGame/blob/main/FrontEnd/Docs/ReadmeBoard.png?raw=true)
 
 ### Class Diagram
-![Class Diagram](ChessGame/FrontEnd/Docs/ReadmeClassDiagram.png)
+![image alt](https://github.com/GilEtzioni/ChessGame/blob/main/FrontEnd/Docs/ReadmeClassDiagram.png?raw=true)
